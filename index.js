@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 
@@ -9,8 +10,10 @@ const port = process.env.PORT || 3000;
 
 // PostgreSQL database configuration
 const pool = new Pool({
-  connectionString: 'postgresql://ultv6k63uq36vroaucej:RtVoGYJLt04avjXaTrcp7v5xDW04l4@bduofbjg2mdctsvne3eb-postgresql.services.clever-cloud.com:5432/bduofbjg2mdctsvne3eb',
+  connectionString: 'postgresql://ultv6k63uq36vroaucej:RtVoGYJLt04avjXaTrcp7v5xDW04l4@b17shpbqy6dfakrwipw9-postgresql.services.clever-cloud.com:50013/b17shpbqy6dfakrwipw9',
 });
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(express.json());
