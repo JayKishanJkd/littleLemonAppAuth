@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
   });
   
   // Endpoint to add an item to the cart and store it in the database
-  app.post('/api/addToCart', async (req, res) => {
+  app.post('/cart', async (req, res) => {
     const { serial_number, quantity } = req.body;
     const menuItem = menuItems.find((item) => item.serial_number === serial_number);
   
@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
   
       // Insert the item into the cart table
       const result = await client.query(
-        'INSERT INTO cart (serial_number, name, category, price_inr, description, quantity) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+        'INSERT INTO littleLemon.cart (serial_number, name, category, price_inr, description, quantity) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
         [
           menuItem.serial_number,
           menuItem.name,
@@ -77,11 +77,11 @@ app.get('/', (req, res) => {
   });
   
   // Endpoint to get the items in the cart from the database
-  app.get('/api/getCart', async (req, res) => {
+  app.get('/cart', async (req, res) => {
     const client = await pool.connect();
   
     try {
-      const result = await client.query('SELECT * FROM cart');
+      const result = await client.query('SELECT * FROM littleLemon.cart');
       const cartItems = result.rows;
       res.json(cartItems);
     } catch (error) {
